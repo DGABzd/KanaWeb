@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const Header = styled.header`
   background-color: ${(props) => props.theme.buttonBackground};
   color: ${(props) => props.theme.buttonText};
+  position: fixed;
+  top: 0;
   padding: 20px;
   width: 100%;
   text-align: center;
