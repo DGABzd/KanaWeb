@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { ThemeProvider, styled } from 'styled-components';
 import { kanaData } from './kanaData';
 import Header from './components/Header';
-import CardContainer from './components/CardContainer';
-import InputField from './components/InputField';
+//import CardContainer from './components/CardContainer';
+//import InputField from './components/InputField';
 import Button from './components/Button';
-import Stats from './components/Stats';
-import ModeSelector from './components/ModeSelector';
-import TableContainer from './components/TableContainer';
+//import Stats from './components/Stats';
+//import ModeSelector from './components/ModeSelector';
+//import TableContainer from './components/TableContainer';
 import { lightTheme, darkTheme } from './styles/themes';
 import GlobalStyle from './styles/GlobalStyle';
 
