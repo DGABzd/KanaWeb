@@ -8,7 +8,7 @@ export const lightTheme = {
   export const darkTheme = {
     background: '#1e1e1e',
     text: '#f8f8f8',
-    buttonBackground: '#4caf50',
+    buttonBackground: '#007aff',
     buttonText: '#ffffff',
   };
   

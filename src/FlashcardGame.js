@@ -48,6 +48,13 @@ const ActionButtons = styled.div`
   margin-top: 20px;
 `;
 
+const ResponseMessage = styled.div`
+  font-size: 1.5em;
+  font-weight: bold;
+  color: ${(props) => props.color || '#000'};
+  margin-bottom: 10px;
+`;
+
 function FlashcardGame({ mode, count, onEnd }) {
   const filteredData = kanaData.filter((kana) => mode === 'all' || kana.type === mode);
   const selectedFlashcards = filteredData.slice(0, count);
@@ -59,6 +66,8 @@ function FlashcardGame({ mode, count, onEnd }) {
   );
   const [flashcardColor, setFlashcardColor] = useState(''); // Variable para el color del fondo de la tarjeta
   const [shake, setShake] = useState(false); // Estado para controlar el shake
+  const [responseMessage, setResponseMessage] = useState(''); // Estado para el mensaje de respuesta
+  const [responseColor, setResponseColor] = useState(''); // Estado para el color del mensaje de respuesta
 
   const currentFlashcard = selectedFlashcards[currentIndex];
 
@@ -96,31 +105,49 @@ function FlashcardGame({ mode, count, onEnd }) {
         setCurrentIndex((prevIndex) => prevIndex + 1);
       }
       setFlashcardColor('#007aff')
-    }, 300); // 200 ms para el "shake"
+    }, 500); // 200 ms para el "shake"
   };
 
   // Enviar la respuesta
   const handleSubmit = () => {
     if (inputValue.trim().toLowerCase() === currentFlashcard.romaji.toLowerCase()) {
       setFlashcardColor('green'); // Establecer color verde si es correcto
-      alert('Correct!');
+      setResponseMessage('Correct!');
+      setResponseColor('green');
       handleResult(currentFlashcard.character, 1);  // Actualizar streak en base a la respuesta correcta
     } else {
       setFlashcardColor('red'); // Establecer color rojo si es incorrecto
-      alert('Incorrect!');
+      setResponseMessage('Incorrect!');
+      setResponseColor('red');
       handleResult(currentFlashcard.character, -1);  // Resetear streak en base a la respuesta incorrecta
     }
     setInputValue('');
+
+    // Ocultar el mensaje después de 2 segundos
+    setTimeout(() => {
+      setResponseMessage('');
+    }, 1000);
   };
 
   // Botón "I don't know" para marcar la respuesta como incorrecta
   const handleIDontKnow = () => {
-    setFlashcardColor('orange'); // Establecer color rojo si no sé la respuesta
+    setFlashcardColor('orange'); // Establecer color naranja si no sé la respuesta
+    setResponseMessage('Incorrect!');
+    setResponseColor('red');
     handleResult(currentFlashcard.character, -1);  // Resetear streak y marcar incorrecto
+    setInputValue('');
+
+    // Ocultar el mensaje después de 2 segundos
+    setTimeout(() => {
+      setResponseMessage('');
+    }, 1000);
   };
 
   return (
     <FlashcardContainer>
+      {responseMessage && (
+        <ResponseMessage color={responseColor}>{responseMessage}</ResponseMessage>
+      )}
       <Flashcard bgColor={flashcardColor} shake={shake}>
         {currentFlashcard?.character}
       </Flashcard>

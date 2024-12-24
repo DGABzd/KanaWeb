@@ -95,6 +95,13 @@ function App() {
               <span>{flashcardCount}</span>
               <FlashcardCountButton onClick={() => adjustFlashcardCount(5)}>+</FlashcardCountButton>
             </FlashcardCountContainer>
+            {/* Botones solo visibles en el menú */}
+            <SectionButton left onClick={() => setView('table')}>
+              Table
+            </SectionButton>
+            <SectionButton right onClick={() => setView('stats')}>
+              Stats
+            </SectionButton>
           </>
         )}
         {view === 'practice' && (
@@ -106,12 +113,6 @@ function App() {
         )}
         {view === 'table' && <CharacterTable onBack={() => setView('menu')} />}
         {view === 'stats' && <StatsPage onBack={() => setView('menu')} />}
-        <SectionButton left onClick={() => setView('table')}>
-          Table
-        </SectionButton>
-        <SectionButton right onClick={() => setView('stats')}>
-          Stats
-        </SectionButton>
         <SectionButton bottom right onClick={() => setDarkMode(!darkMode)}>
           {darkMode ? 'Light Mode' : 'Dark Mode'}
         </SectionButton>
@@ -119,5 +120,6 @@ function App() {
     </ThemeProvider>
   );
 }
+
 
 export default App;
